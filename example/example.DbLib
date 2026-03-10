@@ -1,7 +1,7 @@
 [OutputDatabaseLinkFile]
 Version=1.1
 [DatabaseLinks]
-ConnectionString=DRIVER={odbc-monkey};DataSource=C:\eli\odbc_monkey\example\json
+ConnectionString=DRIVER={odbc-monkey};DataSource=C:\ELI\odbc_monkey\example\json
 AddMode=3
 RemoveMode=1
 UpdateMode=2

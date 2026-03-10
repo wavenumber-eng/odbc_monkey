@@ -19,47 +19,74 @@
 
 # odbc-monkey 
 
-A high-performance json ODBC driver sepcifically designed for use with Altium Database Library (DbLib).
+A high-performance json ODBC driver designed for use with Altium Database Libraries (DbLib).
 
-Please reach out to ehughes@wavenumber.net for commercial licenses and customizations (other formats besides json)
+odbc-monkey supports a git based workflows for your libraries and meta data. 
 
+The componets panel is very fast as everthing is local and cached in memory.
+
+odbc-monkey has been tooled to work as good as possible in Altium and its ODBC access pattern. 
+
+Any wierd bugs left are on the Altium side. The driver drivers to present data to altium so you rarely have to restart altium if you change data in the json files while 
 
 ## Features
 
+- **Designed For Speed** - optimized as a purely local dblib from json files w/ git
+- **In memory cache** - All accesses use a redis style in-memory cache for speed
+- **Live cache refresh** - File watcher for real-time updates when JSON files change.  You can build your own tools to manage the json files.
+- **Non-locking reads** - Allows concurrent file editing.  You can update the json w/ Altium connected.
 - **Schema from JSON data** - No hardcoded table schema in the driver
 - **Versioned JSON support** - Extracts latest version by UUIDv7 
-- **In memory cache Cache** - All accesses to to the in-memory cache for speed
-- **Live cache refresh** - File watcher for real-time updates when JSON files change
-- **Non-locking reads** - Allows concurrent file editing
-- **Unicode support** - Full UTF-8/UTF-16 handling
-- **Classification tables** - Tables based on `foo/bar --> foo#bar` format
+- **Unicode support** - Full UTF-8/UTF-16 handling so your can get the omega and micro symbols.
+- **Dynamic Classification tables** - Tables based on `foo/bar --> foo#bar` format
 
-### Install
 
-Run the *install.ps1* power shell script.  
+### Install and Test
+
+0. Clone this repo to static location
+
+1. Run the `*install.ps1*` power shell script.  
 
 It will ask for admin. 
 
-This will register a new obbc data source. 
+This will register a new system DSN ODBC driver. 
 
-It udpates the registry to point to the .dll in the bin folder.
+It updates the registry to point to the .dll in the bin folder.
 
-###  Test with example
+There is an uninstall script included to nuke the install.
+ 
 
-run *rebuild_example.ps1*
+2. Check the odbc admin (64-bit) to verify installation:
 
-This uses the Python tooling in `dblib_builder.py` to scan the example JSON data and regenerate `example\example.DbLib` with the correct paths for this repo checkout.
+![Start up the 64-bit ODBC admin ](doc/odbc_data_source_admin_64bit.png)
 
-You can also run the generator directly:
+![Verify odbc-monkey in the System DSN](doc/odbc_data_source_admin_64bit__system_dsn.png)
 
-```
-python dblib_builder.py --json-path example\json --output example --name example
-```
+3.
+
+Run *rebuild_example.ps1* from a terminal.
+
+This uses the python tooling in `dblib_builder.py` to scan the example JSON data and regenerate `example\example.DbLib`.
+
+This is vanilla python, any reasonable version should work.
+
+This is important to run. 
+
+It autogens example/example.dblib with all the proper settings.
+
+For large libraries it does all the work of automagically creating dblib for the target system.
+
+4.
+
+Add `example.dblib` to your altium library setup
+
+![example.dblib in the example folder](doc/example_dblib.png)
+![Altium setup and usage](doc/altium_setup.gif)
 
 
 ## Connection Strings
 
-You can setup  your dblib manually if you are insane (use the python script!)
+You can setup your dblib manually if you are insane (use the python script!)
 
 ```
 # Using driver directly
@@ -72,11 +99,11 @@ DRIVER={odbc-monkey};DataSource=C:\path\to\json\files
 - `example/` - Example JSON, symbols, footprints, generated DbLib
 - `dblib_builder.py` - Python DbLib generator
 - `rebuild_example.ps1` - Regenerates `example\example.DbLib`
-- `gui/` - Python GUI viewer
+- `gui/` - Python GUI test viewer
 
 ## Source
 
-The C++ driver source, native build scripts, and native tests live in `native/`. If you need to work on the driver itself, start with `native/README.md`.
+The c++ driver source, windows build scripts, and  tests live in `native/`. If you need to work on the driver itself, start with `native/README.md`.
 
 ## JSON File Format
 
@@ -110,30 +137,32 @@ The driver extracts the latest version based on UUIDv7 timestamp in the `id` fie
 - If `id` fields are present, the version with the highest UUIDv7 timestamp is used
 - If no `id` fields are present, the first entry in the `versions` array is used
 - The `classification` field (`category/table` format) determines which ODBC table the part belongs to
-- Filename is not used for table assignment (only for internal file tracking)
 
-### Column Schema
+### Columns / Schema
 
 There is no fixed built-in schema. Columns are discovered from the JSON data loaded for each table.
 
-In practice, a table's exposed columns are based on the fields seen while that table is loaded. If files in the same classification have inconsistent fields, not every field is guaranteed to appear as a column.
+In practice, a table's exposed columns are based on the fields seen while that table is loaded.
 
-Typical tables have 40-120+ columns depending on the data.
+If files in the same classification have inconsistent fields, not every field is guaranteed to appear as a column.
+
+Rerun the python script if there is signficant changes to your classification structure.
+
+I typically use the the same fields for a particular classification.
 
 ### Tables
 
 - `parts` - Returns all parts from all JSON files
 - `foo#bar` - Returns parts filtered by classification (for example, `SELECT * FROM [capacitors#Murata_C0402]`)
 
-Table names use `foo#bar` format derived from the JSON `classification` field.
+Table names use `foo#bar` format derived from the JSON `classification` field with foo/bar format.
 
 Example:   ic/mcu  in the classification field will show up as the tbale ic#mcu in the components panel.
 
 
-
 ## Implemenation Scope
 
-`odbc-monkey` is built specifically for Altium Designer DbLib workflows.
+`odbc-monkey` is built specifically for Altium Designer .dblib workflows.
 
 It implements the subset of ODBC behavior needed by Altium and is tested primarily against Altium Designer. Other ODBC clients may work for basic browsing and queries, but broad ODBC compatibility is not a project goal.
 
@@ -180,12 +209,16 @@ uv run python odbc_viewer.py
 
 ## Third-Party Libraries
 
+odbc_monkey uses an external json library.
+
 - [nlohmann/json](https://github.com/nlohmann/json) - JSON for Modern C++ (MIT License)
 
-## License
+## License and Customization
 
 AGPLv3
 
+Please reach out to ehughes@wavenumber.net for commercial licenses and customizations (other formats besides json)
+
 ## Release Notes
 
-2026-03-01 a0 : Initial public release supporting the version JSON data model
+a0 : Initial public release supporting the version JSON data model
