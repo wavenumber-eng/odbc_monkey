@@ -1,0 +1,28 @@
+{
+  "versions": [
+    {
+      "id": "0199ff51-fe8f-76bf-389d-2f340a4db8cb",
+      "cad-reference": "BLM15PX121SN1D",
+      "mpn": "BLM15PX121SN1D",
+      "classification": "orphanage/little_annie",
+      "manufacturer": "Murata Electronics",
+      "description": "120 Ohms @ 100 MHz 1 Power Line Ferrite Bead 0402 (1005 Metric) 2A 55mOhm",
+      "value": "120Ω@100MHz",
+      "Library Path": "",
+      "Library Ref": "",
+      "Footprint Path 1": "",
+      "Footprint Ref 1": "",
+      "Footprint Path 2": "",
+      "Footprint Ref 2": "",
+      "Footprint Path 3": "",
+      "Footprint Ref 3": "",
+      "kicad-symbol-path": "",
+      "kicad-symbol": "",
+      "kicad-footprint-path": "",
+      "kicad-footprint": "",
+      "ipn": "",
+      "jlc_pn": "",
+      "flags": ""
+    }
+  ]
+}

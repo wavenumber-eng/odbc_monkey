@@ -1,0 +1,28 @@
+{
+  "versions": [
+    {
+      "cad-reference": "LM317HVT/NOPB",
+      "Library Path": "symbols\\LM317HVT_NOPB.SchLib",
+      "Library Ref": "LM317HVT_NOPB",
+      "Footprint Path 1": "footprints\\ic\\TO-220-3.PcbLib",
+      "Footprint Ref 1": "TO-220-3",
+      "Footprint Path 2": "",
+      "Footprint Ref 2": "",
+      "Footprint Path 3": "",
+      "Footprint Ref 3": "",
+      "kicad-symbol-path": "symbols\\LM317HVT_NOPB.kicad_sym",
+      "kicad-symbol": "LM317HVT_NOPB",
+      "kicad-footprint-path": "footprints\\ic\\TO-220-3.kicad_mod",
+      "kicad-footprint": "TO-220-3",
+      "ipn": "",
+      "manufacturer": "Texas Instruments",
+      "mpn": "LM317HVT/NOPB",
+      "jlc_pn": "C468256",
+      "value": "LM317HVT/NOPB",
+      "description": "1.5-A, 60-V, adjustable linear voltage regulator",
+      "flags": "",
+      "classification": "ic/regulator_linear",
+      "id": "0199fe35-291c-7798-072c-2468eeaed65d"
+    }
+  ]
+}

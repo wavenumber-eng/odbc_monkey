@@ -1,0 +1,43 @@
+[OutputDatabaseLinkFile]
+Version=1.1
+[DatabaseLinks]
+ConnectionString=DRIVER={odbc-monkey};DataSource=C:\eli\odbc_monkey\example\json
+AddMode=3
+RemoveMode=1
+UpdateMode=2
+ViewMode=0
+LeftQuote=[
+RightQuote=]
+QuoteTableNames=1
+UseTableSchemaName=0
+DefaultColumnType=NVARCHAR(255)
+LibraryDatabaseType=
+LibraryDatabasePath=
+DatabasePathRelative=0
+TopPanelCollapsed=0
+LibrarySearchPath=
+OrcadMultiValueDelimiter=,
+SearchSubDirectories=0
+SchemaName=
+LastFocusedTable=capacitors#0603
+
+[Table1]
+SchemaName=
+TableName=Parts
+Enabled=True
+UserWhere=1
+UserWhereText=[cad-reference] = '{cad-reference}'
+
+[Table2]
+SchemaName=
+TableName=capacitors#0603
+Enabled=True
+UserWhere=1
+UserWhereText=[cad-reference] = '{cad-reference}'
+
+[Table3]
+SchemaName=
+TableName=resistors#0603
+Enabled=True
+UserWhere=1
+UserWhereText=[cad-reference] = '{cad-reference}'

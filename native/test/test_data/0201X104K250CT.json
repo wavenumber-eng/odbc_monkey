@@ -1,0 +1,36 @@
+{
+  "versions": [
+    {
+      "cad-reference": "0201X104K250CT",
+      "Library Path": "symbols\\Capacitor.SchLib",
+      "Library Ref": "C_2P_NP",
+      "Footprint Path 1": "footprints\\capacitor\\C0201_0.33MM_HD.PcbLib",
+      "Footprint Ref 1": "C0201_0.33MM_HD",
+      "Footprint Path 2": "footprints\\capacitor\\C0201_0.33MM_MD.PcbLib",
+      "Footprint Ref 2": "C0201_0.33MM_MD",
+      "Footprint Path 3": "footprints\\capacitor\\C0201_0.33MM_LD.PcbLib",
+      "Footprint Ref 3": "C0201_0.33MM_LD",
+      "kicad-symbol-path": "symbols\\Capacitor.kicad_sym",
+      "kicad-symbol": "C_2P_NP",
+      "kicad-footprint-path": "footprints\\capacitor\\C0201_0.33MM_HD.kicad_mod",
+      "kicad-footprint": "C0201_0.33MM_HD",
+      "ipn": "",
+      "manufacturer": "Walsin Technology Corporation",
+      "mpn": "0201X104K250CT",
+      "jlc_pn": "",
+      "value": "0.1µF",
+      "description": "CAP CER 0.1UF 25V X5R 0201",
+      "flags": "",
+      "Voltage - Rated": "25V",
+      "Tolerance": "±10%",
+      "Temperature Coefficient": "X5R",
+      "Operating Temperature": "-55°C ~ 85°C",
+      "Ratings": "",
+      "Package": "0201",
+      "Thickness (Max)": "0.33MM",
+      "Substitution Notes": "0.1µF , 25V , 0201 , ±10% , X5R , -55°C ~ 85°C",
+      "classification": "capacitors/Walsin_C0201",
+      "id": "0199fe35-26d0-706f-6bb6-5d53ea8396d3"
+    }
+  ]
+}

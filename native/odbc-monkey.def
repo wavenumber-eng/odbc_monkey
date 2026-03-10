@@ -1,0 +1,72 @@
+LIBRARY odbc-monkey
+EXPORTS
+    ; Handle management
+    SQLAllocHandle
+    SQLFreeHandle
+
+    ; Environment functions
+    SQLSetEnvAttr
+    SQLGetEnvAttr
+
+    ; Connection functions
+    SQLConnect
+    SQLConnectW
+    SQLDriverConnect
+    SQLDriverConnectW
+    SQLDisconnect
+    SQLSetConnectAttr
+    SQLSetConnectAttrW
+    SQLGetConnectAttr
+    SQLGetConnectAttrW
+
+    ; Statement attribute functions
+    SQLSetStmtAttr
+    SQLSetStmtAttrW
+    SQLGetStmtAttr
+    SQLGetStmtAttrW
+
+    ; Query execution
+    SQLPrepare
+    SQLPrepareW
+    SQLExecute
+    SQLExecDirect
+    SQLExecDirectW
+
+    ; Result set functions
+    SQLNumResultCols
+    SQLRowCount
+    SQLFetch
+    SQLDescribeCol
+    SQLDescribeColW
+    SQLColAttribute
+    SQLColAttributeW
+    SQLGetData
+    SQLGetDataW
+    SQLBindCol
+    SQLCloseCursor
+    SQLFreeStmt
+
+    ; Catalog functions
+    SQLTables
+    SQLTablesW
+    SQLColumns
+    SQLColumnsW
+    SQLGetTypeInfo
+    SQLGetTypeInfoW
+    SQLStatistics
+    SQLStatisticsW
+    SQLPrimaryKeys
+    SQLPrimaryKeysW
+    SQLForeignKeys
+    SQLForeignKeysW
+    SQLProcedures
+    SQLProceduresW
+
+    ; Info functions
+    SQLGetInfo
+    SQLGetInfoW
+    SQLGetFunctions
+
+    ; Diagnostic functions
+    SQLGetDiagRec
+    SQLGetDiagRecW

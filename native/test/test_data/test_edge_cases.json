@@ -1,0 +1,40 @@
+{
+  "versions": [
+    {
+      "id": "01936000-0000-7000-0000-000000000005",
+      "classification": "test/edge_cases",
+      "cad-reference": "EDGE-EMPTY-001",
+      "mpn": "",
+      "manufacturer": "Test Corp",
+      "value": "",
+      "description": "Part with empty value and MPN fields"
+    },
+    {
+      "id": "01936000-0000-7000-0000-000000000006",
+      "classification": "test/edge_cases",
+      "cad-reference": "EDGE-LONG-001",
+      "mpn": "VERY-LONG-PART-NUMBER-THAT-EXCEEDS-TYPICAL-BUFFER-SIZES-1234567890-ABCDEFGHIJ",
+      "manufacturer": "Test Corporation With An Exceptionally Long Company Name That May Cause Buffer Issues",
+      "value": "100nF",
+      "description": "This is an extremely long description field that is designed to test buffer truncation handling in the ODBC driver. It contains enough text to potentially exceed typical buffer sizes used by applications like Altium Designer when querying the database."
+    },
+    {
+      "id": "01936000-0000-7000-0000-000000000007",
+      "classification": "test/edge_cases",
+      "cad-reference": "EDGE-SPECIAL-001",
+      "mpn": "TEST'QUOTE",
+      "manufacturer": "Test \"Corp\"",
+      "value": "10%",
+      "description": "Part with special characters: 'quotes', \"double\", and % percent"
+    },
+    {
+      "id": "01936000-0000-7000-0000-000000000008",
+      "classification": "test/edge_cases",
+      "cad-reference": "EDGE-WHITESPACE-001",
+      "mpn": "  SPACED  ",
+      "manufacturer": "Test Corp",
+      "value": "1k",
+      "description": "Part with leading and trailing whitespace"
+    }
+  ]
+}

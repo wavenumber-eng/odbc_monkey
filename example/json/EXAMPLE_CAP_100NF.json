@@ -1,0 +1,17 @@
+{
+  "versions": [
+    {
+      "id": "01940000-0000-7000-0000-000000000002",
+      "classification": "capacitors/0603",
+      "cad-reference": "EXAMPLE_CAP_100NF",
+      "Library Path": "symbols\\C_2P_NP.SchLib",
+      "Library Ref": "C_2P_NP",
+      "Footprint Path 1": "footprints\\C0603_HD.PcbLib",
+      "Footprint Ref 1": "C0603_HD",
+      "manufacturer": "Example Manufacturer",
+      "mpn": "CL10B104KB8NNNC",
+      "value": "100nF",
+      "description": "CAP CER 100NF 50V X7R 0603"
+    }
+  ]
+}

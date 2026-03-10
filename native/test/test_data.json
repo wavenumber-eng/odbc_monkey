@@ -1,0 +1,22 @@
+{
+  "versions": [
+    {
+      "id": "0192c0a0-0000-7000-0000-000000000001",
+      "classification": "test_category/test_table",
+      "mpn": "TEST-001",
+      "manufacturer": "Test Corp",
+      "description": "Test Part 1 - 100Ohm resistor",
+      "value": "100R",
+      "Footprint Path 1": "Resistors:R_0603"
+    },
+    {
+      "id": "0192c0a0-0000-7000-0000-000000000002",
+      "classification": "test_category/test_table",
+      "mpn": "TEST-002",
+      "manufacturer": "Test Corp",
+      "description": "Test Part 2 - 1uF capacitor",
+      "value": "1uF",
+      "Footprint Path 1": "Capacitors:C_0603"
+    }
+  ]
+}

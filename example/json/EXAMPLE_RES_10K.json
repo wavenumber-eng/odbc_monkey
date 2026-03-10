@@ -1,0 +1,17 @@
+{
+  "versions": [
+    {
+      "id": "01940000-0000-7000-0000-000000000001",
+      "classification": "resistors/0603",
+      "cad-reference": "EXAMPLE_RES_10K",
+      "Library Path": "symbols\\R_2P.SchLib",
+      "Library Ref": "R_2P",
+      "Footprint Path 1": "footprints\\R0603_HD.PcbLib",
+      "Footprint Ref 1": "R0603_HD",
+      "manufacturer": "Example Manufacturer",
+      "mpn": "RC0603FR-0710KL",
+      "value": "10k",
+      "description": "RES SMD 10K OHM 1% 1/10W 0603"
+    }
+  ]
+}

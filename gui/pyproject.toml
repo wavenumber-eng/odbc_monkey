@@ -1,0 +1,9 @@
+[project]
+name = "odbc-viewer"
+version = "0.1.0"
+description = "OdbcMonkey GUI Viewer - Browse data from JSON ODBC driver"
+requires-python = ">=3.10"
+dependencies = [
+    "dearpygui>=1.10.0",
+    "pyodbc>=5.0.0",
+]
