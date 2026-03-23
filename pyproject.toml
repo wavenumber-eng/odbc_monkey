@@ -1,0 +1,27 @@
+[project]
+name = "odbc-monkey"
+version = "1.0.0"
+description = "Python helper tooling for the odbc-monkey JSON ODBC driver"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = []
+
+[project.scripts]
+odbc-monkey-dblib = "odbc_monkey.dblib_builder:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+sources = ["src/py"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/py/odbc_monkey/**",
+    "README.md",
+    "LICENSE",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/py/odbc_monkey"]

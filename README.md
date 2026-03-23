@@ -47,6 +47,22 @@ This is most likely the swan song for altium dblibs.
 
 ### 0. Clone this repo to static location
 
+### 0.5 Install the Python helper package
+
+If you want to import `generate_dblib()` from another Python project, install
+this repo as a normal package:
+
+```powershell
+cd odbc-monkey
+uv sync
+```
+
+or:
+
+```powershell
+pip install -e .
+```
+
 ### 1. Run the `*install.ps1*` power shell script.  
 
 It will ask for admin. 
@@ -68,7 +84,11 @@ There is an uninstall script included to nuke the install.
 
 This uses the python tooling in `dblib_builder.py` to scan the example JSON data and regenerate `example\example.DbLib`.
 
-This is vanilla python, any reasonable version should work.
+This also works through the packaged CLI:
+
+```powershell
+uv run odbc-monkey-dblib --json-path .\example\json --output .\example --name example
+```
 
 This is important to run. 
 
