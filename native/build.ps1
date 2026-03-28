@@ -127,20 +127,21 @@ try {
         exit 1
     }
 
-    # Get version from CMake cache
-    $cacheFile = Join-Path $cmakeBuildDir "CMakeCache.txt"
     $versionString = "unknown"
-    if (Test-Path $cacheFile) {
-        $content = Get-Content $cacheFile
-        $versionLine = $content | Where-Object { $_ -match "^VERSION_STRING:STRING=(.+)$" }
-        if ($versionLine -and $versionLine -match "=(.+)$") {
-            $versionString = $Matches[1]
-        }
+    $builtDll = Get-ChildItem "$binDir\odbc-monkey_*.dll" -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 1
+    if ($builtDll -and $builtDll.BaseName -match "^odbc-monkey_(.+)$") {
+        $versionString = $Matches[1]
     }
 
     Write-Host ""
     Write-Host "[Build] Build succeeded (version: $versionString)" -ForegroundColor Green
-    Write-Host "        DLL: $binDir\odbc-monkey_$versionString.dll" -ForegroundColor Gray
+    if ($builtDll) {
+        Write-Host "        DLL: $($builtDll.FullName)" -ForegroundColor Gray
+    } else {
+        Write-Host "        DLL: $binDir\odbc-monkey_$versionString.dll" -ForegroundColor Gray
+    }
     Write-Host ""
 
 } finally {

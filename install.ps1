@@ -75,6 +75,85 @@ function Get-RegistryValueNames {
         Select-Object -ExpandProperty Name
 }
 
+function Test-IsOdbcMonkeyDriverRegistration {
+    param(
+        [string]$Root,
+        [string]$KeyName
+    )
+
+    if (-not $KeyName -or $KeyName -eq "ODBC Drivers") {
+        return $false
+    }
+
+    if ($KeyName -ilike "odbc-monkey*") {
+        return $true
+    }
+
+    $driverKey = Join-Path $Root $KeyName
+    if (-not (Test-Path $driverKey)) {
+        return $false
+    }
+
+    $driverProps = Get-ItemProperty -Path $driverKey -ErrorAction SilentlyContinue
+    if (-not $driverProps) {
+        return $false
+    }
+
+    foreach ($value in @([string]$driverProps.Driver, [string]$driverProps.Setup, [string]$driverProps.Description)) {
+        if (-not $value) {
+            continue
+        }
+
+        $fileName = [System.IO.Path]::GetFileName($value)
+        if ($fileName -ilike "odbc-monkey*.dll" -or $value -imatch "odbc-monkey") {
+            return $true
+        }
+    }
+
+    return $false
+}
+
+function Remove-OdbcMonkeyDriverRegistrations {
+    param(
+        [string]$Root,
+        [string]$Label
+    )
+
+    if (-not (Test-Path $Root)) {
+        return
+    }
+
+    $candidateNames = @($driverName)
+    $candidateNames += Get-ChildItem -Path $Root -ErrorAction SilentlyContinue |
+        Where-Object { Test-IsOdbcMonkeyDriverRegistration -Root $Root -KeyName $_.PSChildName } |
+        Select-Object -ExpandProperty PSChildName
+
+    $candidateNames = $candidateNames | Where-Object { $_ } | Sort-Object -Unique
+    $odbcDriversKey = Join-Path $Root "ODBC Drivers"
+
+    foreach ($name in $candidateNames) {
+        $removedSomething = $false
+        $driverKey = Join-Path $Root $name
+
+        if (Test-Path $driverKey) {
+            Remove-Item -Path $driverKey -Recurse -Force
+            $removedSomething = $true
+        }
+
+        if (Test-Path $odbcDriversKey) {
+            $valueNames = Get-RegistryValueNames -Path $odbcDriversKey
+            if ($valueNames -icontains $name) {
+                Remove-ItemProperty -Path $odbcDriversKey -Name $name -ErrorAction SilentlyContinue
+                $removedSomething = $true
+            }
+        }
+
+        if ($removedSomething) {
+            Write-Host "       Removed legacy driver registration from ${Label}: $name" -ForegroundColor Gray
+        }
+    }
+}
+
 function Remove-DsnByName {
     param([string]$Name)
 
@@ -112,9 +191,7 @@ function Install-Driver {
         New-Item -Path $odbcDriversKey -Force | Out-Null
     }
 
-    if (Test-Path $driverKey) {
-        Remove-Item -Path $driverKey -Recurse -Force
-    }
+    Remove-OdbcMonkeyDriverRegistrations -Root $systemOdbcInstRoot -Label "driver registry (64-bit)"
     New-Item -Path $driverKey -Force | Out-Null
 
     Set-ItemProperty -Path $driverKey -Name "Driver" -Value $driverDll.FullName

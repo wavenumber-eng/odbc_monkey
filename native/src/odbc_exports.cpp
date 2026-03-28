@@ -986,7 +986,9 @@ extern "C" __declspec(dllexport) SQLRETURN SQL_API SQLColAttribute(SQLHSTMT Stat
         break;
 
     case SQL_COLUMN_TABLE_NAME:
+#if SQL_DESC_TABLE_NAME != SQL_COLUMN_TABLE_NAME
     case SQL_DESC_TABLE_NAME:
+#endif
         if (stmt->resultSet)
         {
             returnColAttributeStringA(stmt->resultSet->name, CharacterAttribute, BufferLength, StringLength);
@@ -998,14 +1000,20 @@ extern "C" __declspec(dllexport) SQLRETURN SQL_API SQLColAttribute(SQLHSTMT Stat
         break;
 
     case SQL_COLUMN_OWNER_NAME:
+#if SQL_DESC_SCHEMA_NAME != SQL_COLUMN_OWNER_NAME
     case SQL_DESC_SCHEMA_NAME:
+#endif
     case SQL_COLUMN_QUALIFIER_NAME:
+#if SQL_DESC_CATALOG_NAME != SQL_COLUMN_QUALIFIER_NAME
     case SQL_DESC_CATALOG_NAME:
+#endif
         returnColAttributeStringA(L"", CharacterAttribute, BufferLength, StringLength);
         break;
 
     case SQL_COLUMN_TYPE_NAME:
+#if SQL_DESC_TYPE_NAME != SQL_COLUMN_TYPE_NAME
     case SQL_DESC_TYPE_NAME:
+#endif
         returnColAttributeStringA(L"VARCHAR", CharacterAttribute, BufferLength, StringLength);
         break;
 
@@ -1036,7 +1044,9 @@ extern "C" __declspec(dllexport) SQLRETURN SQL_API SQLColAttribute(SQLHSTMT Stat
         break;
 
     case SQL_COLUMN_DISPLAY_SIZE:
+#if SQL_DESC_DISPLAY_SIZE != SQL_COLUMN_DISPLAY_SIZE
     case SQL_DESC_DISPLAY_SIZE:
+#endif
         if (NumericAttribute)
             *NumericAttribute = col.columnSize;
         break;
@@ -1048,25 +1058,37 @@ extern "C" __declspec(dllexport) SQLRETURN SQL_API SQLColAttribute(SQLHSTMT Stat
         break;
 
     case SQL_COLUMN_UNSIGNED:
+#if SQL_DESC_UNSIGNED != SQL_COLUMN_UNSIGNED
     case SQL_DESC_UNSIGNED:
+#endif
     case SQL_COLUMN_MONEY:
+#if SQL_DESC_FIXED_PREC_SCALE != SQL_COLUMN_MONEY
     case SQL_DESC_FIXED_PREC_SCALE:
+#endif
     case SQL_COLUMN_AUTO_INCREMENT:
+#if SQL_DESC_AUTO_UNIQUE_VALUE != SQL_COLUMN_AUTO_INCREMENT
     case SQL_DESC_AUTO_UNIQUE_VALUE:
+#endif
     case SQL_COLUMN_CASE_SENSITIVE:
+#if SQL_DESC_CASE_SENSITIVE != SQL_COLUMN_CASE_SENSITIVE
     case SQL_DESC_CASE_SENSITIVE:
+#endif
         if (NumericAttribute)
             *NumericAttribute = SQL_FALSE;
         break;
 
     case SQL_COLUMN_UPDATABLE:
+#if SQL_DESC_UPDATABLE != SQL_COLUMN_UPDATABLE
     case SQL_DESC_UPDATABLE:
+#endif
         if (NumericAttribute)
             *NumericAttribute = 0;
         break;
 
     case SQL_COLUMN_SEARCHABLE:
+#if SQL_DESC_SEARCHABLE != SQL_COLUMN_SEARCHABLE
     case SQL_DESC_SEARCHABLE:
+#endif
         if (NumericAttribute)
             *NumericAttribute = SQL_PRED_SEARCHABLE;
         break;
@@ -1151,7 +1173,9 @@ extern "C" __declspec(dllexport) SQLRETURN SQL_API SQLColAttributeW(SQLHSTMT Sta
         break;
 
     case SQL_COLUMN_TABLE_NAME: // 15 - Table name
+#if SQL_DESC_TABLE_NAME != SQL_COLUMN_TABLE_NAME
     case SQL_DESC_TABLE_NAME:   // 1026 - ODBC 3.x table name
+#endif
         // Return the table name from result set if available
         if (stmt->resultSet)
         {
@@ -1164,17 +1188,23 @@ extern "C" __declspec(dllexport) SQLRETURN SQL_API SQLColAttributeW(SQLHSTMT Sta
         break;
 
     case SQL_COLUMN_OWNER_NAME: // 16 - Schema/owner name (empty for us)
+#if SQL_DESC_SCHEMA_NAME != SQL_COLUMN_OWNER_NAME
     case SQL_DESC_SCHEMA_NAME:  // 1025 - ODBC 3.x schema name
+#endif
         returnColAttributeString(L"", CharacterAttribute, BufferLength, StringLength);
         break;
 
     case SQL_COLUMN_QUALIFIER_NAME: // 17 - Catalog/qualifier name (empty for us)
+#if SQL_DESC_CATALOG_NAME != SQL_COLUMN_QUALIFIER_NAME
     case SQL_DESC_CATALOG_NAME:     // 1024 - ODBC 3.x catalog name
+#endif
         returnColAttributeString(L"", CharacterAttribute, BufferLength, StringLength);
         break;
 
     case SQL_COLUMN_TYPE_NAME: // 14 - Type name as string
+#if SQL_DESC_TYPE_NAME != SQL_COLUMN_TYPE_NAME
     case SQL_DESC_TYPE_NAME:   // 1030 - ODBC 3.x type name
+#endif
         returnColAttributeString(L"WVARCHAR", CharacterAttribute, BufferLength, StringLength);
         break;
 
@@ -1205,7 +1235,9 @@ extern "C" __declspec(dllexport) SQLRETURN SQL_API SQLColAttributeW(SQLHSTMT Sta
         break;
 
     case SQL_COLUMN_DISPLAY_SIZE: // 6
+#if SQL_DESC_DISPLAY_SIZE != SQL_COLUMN_DISPLAY_SIZE
     case SQL_DESC_DISPLAY_SIZE:   // 1032
+#endif
         if (NumericAttribute)
             *NumericAttribute = col.columnSize;
         break;
@@ -1217,37 +1249,49 @@ extern "C" __declspec(dllexport) SQLRETURN SQL_API SQLColAttributeW(SQLHSTMT Sta
         break;
 
     case SQL_COLUMN_UNSIGNED: // 8
+#if SQL_DESC_UNSIGNED != SQL_COLUMN_UNSIGNED
     case SQL_DESC_UNSIGNED:   // 1033
+#endif
         if (NumericAttribute)
             *NumericAttribute = SQL_FALSE;
         break;
 
     case SQL_COLUMN_MONEY:          // 9
+#if SQL_DESC_FIXED_PREC_SCALE != SQL_COLUMN_MONEY
     case SQL_DESC_FIXED_PREC_SCALE: // 1034
+#endif
         if (NumericAttribute)
             *NumericAttribute = SQL_FALSE;
         break;
 
     case SQL_COLUMN_UPDATABLE: // 10
+#if SQL_DESC_UPDATABLE != SQL_COLUMN_UPDATABLE
     case SQL_DESC_UPDATABLE:   // 1035
+#endif
         if (NumericAttribute)
             *NumericAttribute = 0; // SQL_ATTR_READONLY
         break;
 
     case SQL_COLUMN_AUTO_INCREMENT:  // 11
+#if SQL_DESC_AUTO_UNIQUE_VALUE != SQL_COLUMN_AUTO_INCREMENT
     case SQL_DESC_AUTO_UNIQUE_VALUE: // 1036
+#endif
         if (NumericAttribute)
             *NumericAttribute = SQL_FALSE;
         break;
 
     case SQL_COLUMN_CASE_SENSITIVE: // 12
+#if SQL_DESC_CASE_SENSITIVE != SQL_COLUMN_CASE_SENSITIVE
     case SQL_DESC_CASE_SENSITIVE:   // 1037
+#endif
         if (NumericAttribute)
             *NumericAttribute = SQL_FALSE;
         break;
 
     case SQL_COLUMN_SEARCHABLE: // 13
+#if SQL_DESC_SEARCHABLE != SQL_COLUMN_SEARCHABLE
     case SQL_DESC_SEARCHABLE:   // 1038
+#endif
         if (NumericAttribute)
             *NumericAttribute = SQL_PRED_SEARCHABLE;
         break;
@@ -1777,9 +1821,9 @@ extern "C" __declspec(dllexport) SQLRETURN SQL_API SQLGetInfo(SQLHDBC Connection
     case SQL_DBMS_VER:
         if (InfoValue && BufferLength > 0)
         {
-            strncpy_s((char*)InfoValue, BufferLength, "01.00.0000", _TRUNCATE);
+            strncpy_s((char*)InfoValue, BufferLength, ODBCMONKEY_DRIVER_VER, _TRUNCATE);
             if (StringLength)
-                *StringLength = 10;
+                *StringLength = (SQLSMALLINT)strlen(ODBCMONKEY_DRIVER_VER);
         }
         break;
     default:
@@ -1816,7 +1860,7 @@ extern "C" __declspec(dllexport) SQLRETURN SQL_API SQLGetInfoW(SQLHDBC Connectio
     case SQL_DRIVER_VER:
         if (InfoValue && BufferLength > 0)
         {
-            wcsncpy_s((wchar_t*)InfoValue, BufferLength / sizeof(wchar_t), L"01.00.0000", _TRUNCATE);
+            wcsncpy_s((wchar_t*)InfoValue, BufferLength / sizeof(wchar_t), L"01.01.0000", _TRUNCATE);
             if (StringLength)
                 *StringLength = 10 * sizeof(wchar_t);
         }

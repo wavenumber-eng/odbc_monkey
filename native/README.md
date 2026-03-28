@@ -69,14 +69,16 @@ Build and run the native test workflow:
 .\build.ps1 -Test
 ```
 
+This auto-installs the current build before running the native suite through the Windows Driver Manager.
+
 ## Build Outputs
 
 Important outputs:
 
-- `cmake-build\Release\odbc-monkey_a0.dll`
+- `cmake-build\Release\odbc-monkey_<version>.dll`
 - `cmake-build\Release\odbc_test.exe`
 - `build\odbc-monkey.dll`
-- `..\bin\odbc-monkey_a0.dll`
+- `..\bin\odbc-monkey_<version>.dll`
 
 The top-level `bin/` copy is the packaged driver artifact for the repo.
 

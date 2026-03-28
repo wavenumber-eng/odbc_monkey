@@ -12,7 +12,7 @@
 # Note: MinGW is not supported (wstring/fstream compatibility issues)
 
 cmake_minimum_required(VERSION 3.20)
-project(odbc-monkey VERSION 0.0.0 LANGUAGES CXX)
+project(odbc-monkey VERSION 0.1.0 LANGUAGES CXX)
 
 # Version string for filenames (e.g., "a0" for alpha 0)
 # Major 0 = alpha (a), 1 = beta (b), 2+ = release
@@ -23,7 +23,7 @@ elseif(PROJECT_VERSION_MAJOR EQUAL 1)
 else()
     set(VERSION_LETTER "v")
 endif()
-set(VERSION_STRING "${VERSION_LETTER}${PROJECT_VERSION_MINOR}" CACHE STRING "Version string for filenames")
+set(VERSION_STRING "${VERSION_LETTER}${PROJECT_VERSION_MINOR}")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -67,6 +67,7 @@ target_include_directories(odbc-monkey PRIVATE ${INC_DIR} ${BUILD_DIR})
 # Windows-specific settings
 if(WIN32)
     target_compile_definitions(odbc-monkey PRIVATE
+        ODBC_MONKEY_EXPORTS
         _UNICODE
         UNICODE
         WIN32_LEAN_AND_MEAN
@@ -78,7 +79,7 @@ if(WIN32)
     # Link ws2_32 for winsock (logger UDP)
     target_link_libraries(odbc-monkey PRIVATE ws2_32)
 
-    # Versioned DLL name (e.g., odbc-monkey_a0.dll)
+    # Versioned DLL name (e.g., odbc-monkey_a1.dll)
     set_target_properties(odbc-monkey PROPERTIES
         OUTPUT_NAME "odbc-monkey_${VERSION_STRING}"
         PREFIX ""

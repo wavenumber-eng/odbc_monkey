@@ -67,11 +67,11 @@ pip install -e .
 
 It will ask for admin. 
 
-This will register a new system DSN ODBC driver. 
+This registers the `odbc-monkey` ODBC driver and creates or refreshes the `odbc-monkey` system DSN. 
 
 It updates the registry to point to the .dll in the bin folder.
 
-There is an uninstall script included to nuke the install.
+The install and uninstall scripts also clean up older `odbc-monkey` registrations, including prior versioned DLL installs such as `a0`.
  
 
 ### 2. Check the odbc admin (64-bit) to verify installation:
@@ -236,4 +236,5 @@ Please reach out to ehughes@wavenumber.net for commercial licenses and customiza
 
 ## Release Notes
 
-a0 : Initial public release supporting the version JSON data model
+a1 : switch the Windows driver to the real ODBC SDK headers while preserving current Altium behavior
+a0 : initial public release supporting the version JSON data model
