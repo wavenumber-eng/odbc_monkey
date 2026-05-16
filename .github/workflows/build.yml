@@ -1,0 +1,57 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 Wavenumber LLC
+
+name: Build & Test
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+  pull_request:
+
+jobs:
+  build:
+    name: Build & Test (Windows x64)
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure CMake
+        run: cmake -G "Visual Studio 17 2022" -A x64 -S native -B native/cmake-build
+
+      - name: Build
+        run: cmake --build native/cmake-build --config Release --parallel
+
+      - name: Install ODBC driver
+        run: powershell -ExecutionPolicy Bypass -File install.ps1
+
+      - name: Run tests
+        run: native/cmake-build/Release/odbc_test.exe
+
+      - name: Upload DLL artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: odbc-monkey-dll
+          path: bin/odbc-monkey_*.dll
+          if-no-files-found: error
+
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: odbc-monkey-dll
+          path: dist
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/odbc-monkey_*.dll
+          generate_release_notes: true
